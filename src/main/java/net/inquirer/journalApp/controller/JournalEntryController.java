@@ -16,24 +16,23 @@ public class JournalEntryController {
     JournalEntryService journalEntryService;
     @GetMapping
     public List<Journal> getJournalEntry() {
-        return new ArrayList<>();
+        return journalEntryService.getAllJournals();
     }
-
     @GetMapping("/id/{id}")
     public Journal getByID(@PathVariable ObjectId objectId){
-        return new Journal();
+        return journalEntryService.getById(objectId);
     }
     @PostMapping
     public void saveJournal(@RequestBody Journal journal){
         journalEntryService.saveEntry(journal);
     }
     @PutMapping("/id/{id}")
-    public void updateJournal(@PathVariable ObjectId id){
-
+    public boolean updateJournal(@PathVariable ObjectId id, @RequestBody Journal journal){
+        return journalEntryService.updateJournal(id,journal);
     }
     @DeleteMapping("/id/{id}")
-    public void deleteMapping(@PathVariable ObjectId id){
-
+    public boolean deleteMapping(@PathVariable ObjectId id){
+        return journalEntryService.deleteJournal(id);
     }
 
 }
